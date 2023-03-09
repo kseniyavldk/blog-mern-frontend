@@ -10,8 +10,8 @@ import { fetchPosts, fetchTags } from "../redux/slices/posts";
 
 export const Home = () => {
   const dispatch = useDispatch();
+  const userData = useSelector((state) => state.auth.data);
   const { posts, tags } = useSelector((state) => state.posts);
-
   const isPostsLoading = posts.status === "loading";
   const isTagsLoading = tags.status === "loading";
 
@@ -29,8 +29,8 @@ export const Home = () => {
         value={0}
         aria-label="basic tabs example"
       >
-        <Tab label="Новые" />
-        <Tab label="Популярные" />
+        <Tab label="New" />
+        <Tab label="Populars" />
       </Tabs>
       <Grid container spacing={4}>
         <Grid xs={8} item>
@@ -39,15 +39,15 @@ export const Home = () => {
               <Post key={index} isLoading={true} />
             ) : (
               <Post
-                id={obj.id}
+                id={obj._id}
                 title={obj.title}
-                imageUrl={obj.imageUrl}
+                imageUrl={obj.imageUrl ? `http://localhost:4444${obj.imageUrl}` : ''}
                 user={obj.user}
                 createdAt={obj.createdAt}
                 viewsCount={obj.viewsCount}
                 commentsCount={3}
                 tags={obj.tags}
-                isEditable
+                isEditable={userData?._id === obj.user._id}
               />
             )
           )}
@@ -61,14 +61,14 @@ export const Home = () => {
             items={[
               {
                 user: {
-                  fullName: "Вася Пупкин",
+                  fullName: "Willow Pendleton",
                   avatarUrl: "https://mui.com/static/images/avatar/1.jpg",
                 },
-                text: "Это тестовый комментарий",
+                text: "Excellent article! Reflects deep things in life.",
               },
               {
                 user: {
-                  fullName: "Иван Иванов",
+                  fullName: "Gideon Prentice",
                   avatarUrl: "https://mui.com/static/images/avatar/2.jpg",
                 },
                 text: "When displaying three lines or more, the avatar is not aligned at the top. You should set the prop to align the avatar at the top",

@@ -2,10 +2,9 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Button from "@mui/material/Button";
-import {selectIsAuth} from "../../redux/slices/auth"
 import styles from "./Header.module.scss";
 import Container from "@mui/material/Container";
-import { logout } from "../../redux/slices/auth";
+import { logout, selectIsAuth } from "../../redux/slices/auth";
 
 export const Header = () => {
   const isAuth = useSelector(selectIsAuth);
@@ -29,24 +28,24 @@ export const Header = () => {
           <div className={styles.buttons}>
             {isAuth ? (
               <>
-                <Link to="/posts/create">
-                  <Button variant="contained">Написать статью</Button>
+                <Link to="/add-post">
+                  <Button variant="contained">To write an article</Button>
                 </Link>
                 <Button
                   onClick={onClickLogout}
                   variant="contained"
                   color="error"
                 >
-                  Выйти
+                  Go out
                 </Button>
               </>
             ) : (
               <>
                 <Link to="/login">
-                  <Button variant="outlined">Войти</Button>
+                  <Button variant="outlined">Sign in</Button>
                 </Link>
                 <Link to="/register">
-                  <Button variant="contained">Создать аккаунт</Button>
+                  <Button variant="contained">Create an account</Button>
                 </Link>
               </>
             )}
